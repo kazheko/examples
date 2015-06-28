@@ -27,9 +27,11 @@ namespace Threading
             Console.ReadKey();
         }
 
+        //O(n)
         static bool IsPrime(uint item)
         {
             if (item == 2) return true;
+
             if (item % 2 == 0) return false;
 
             for (uint i = 3; i < item; i += 2)
@@ -41,15 +43,15 @@ namespace Threading
         }
 
         // example 1
-        static IEnumerable<uint> PrimesInRange(uint start, uint end)
-        {
-            var result = new List<uint>();
-            for (var i = start; i < end; i++)
-            {
-                if (IsPrime(i)) result.Add(i);
-            }
-            return result;
-        }
+        //static IEnumerable<uint> PrimesInRange(uint start, uint end)
+        //{
+        //    var result = new List<uint>();
+        //    for (var i = start; i < end; i++)
+        //    {
+        //        if (IsPrime(i)) result.Add(i);
+        //    }
+        //    return result;
+        //}
 
         // example 2
         //static IEnumerable<uint> PrimesInRange(uint start, uint end)
@@ -137,10 +139,9 @@ namespace Threading
         //    return result;
         //}
 
-        ////example 4
+        //example 4
         //private static IEnumerable<uint> PrimesInRange(uint start, uint end)
         //{
-
         //    uint chunk = 100;
         //    var actionCount = (end - start) / chunk;
 
@@ -189,7 +190,7 @@ namespace Threading
         //    return result;
         //}
 
-        //// example 5.2
+        // example 5.2
         //static IEnumerable<uint> PrimesInRange(uint start, uint end)
         //{
         //    var result = new List<uint>();
@@ -214,11 +215,11 @@ namespace Threading
         //static IEnumerable<uint> PrimesInRange(uint start, uint end)
         //{
         //    var result = new List<uint>();
-        //    Parallel.ForEach(Partitioner.Create(start, end), (range) =>
+        //    Parallel.ForEach(Partitioner.Create(start, end, 100), (range) =>
         //    {
         //        for (var i = range.Item1; i < range.Item2; i++)
         //        {
-        //            if (IsPrime((uint) i))
+        //            if (IsPrime((uint)i))
         //            {
         //                lock (result)
         //                {
@@ -230,14 +231,14 @@ namespace Threading
         //    return result;
         //}
 
-        //// example 6
-        //static IEnumerable<uint> PrimesInRange(uint start, uint end)
-        //{
-        //    return Enumerable.Range((int)start, (int)(end - start))
-        //        .AsParallel()
-        //        .Select(Convert.ToUInt32)
-        //        .Where(IsPrime)
-        //        .ToList();
-        //}
+        // example 6
+        static IEnumerable<uint> PrimesInRange(uint start, uint end)
+        {
+            return Enumerable.Range((int)start, (int)(end - start))
+                .AsParallel()
+                .Select(Convert.ToUInt32)
+                .Where(IsPrime)
+                .ToList();
+        }
     }
 }

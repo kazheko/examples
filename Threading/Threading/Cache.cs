@@ -27,6 +27,19 @@ namespace Threading
             Console.ReadKey();
         }
 
+        static int[,] CreateArray(int rowCount, int colCount)
+        {
+            var result = new int[rowCount, colCount];
+            for (int i = 0; i < rowCount; i++)
+            {
+                for (int j = 0; j < colCount; j++)
+                {
+                    result[i, j] = 1;
+                }
+            }
+            return result;
+        }
+
         //static int Sum(int[,] array)
         //{
         //    int sum = 0;
@@ -62,15 +75,15 @@ namespace Threading
                 var temp = processorIndex;
                 threads[processorIndex] = new Thread(() =>
                 {
-                    var localSum = 0;
+                    int localResult = 0;
                     for (int i = start; i < end; i++)
                     {
                         for (int j = 0; j < colCount; j++)
                         {
-                            localSum += array[i, j];
+                            localResult += array[i, j];
                         }
                     }
-                    results[temp] = localSum;
+                    results[temp] = localResult;
                 });
 
                 threads[processorIndex].Start();
@@ -82,19 +95,6 @@ namespace Threading
             }
 
             return results.Sum();
-        }
-
-        static int[,] CreateArray(int rowCount, int colCount)
-        {
-            var result = new int[rowCount,colCount];
-            for (int i = 0; i < rowCount; i++)
-            {
-                for (int j = 0; j < colCount; j++)
-                {
-                    result[i, j] = 1;
-                }
-            }
-            return result;
         }
     }
 }
