@@ -10,7 +10,13 @@ Parent.prototype.say = function (str) {
 };
 // пустой дочерний конструктор
 function Child(name) {
-    Parent.apply(this, arguments);
+}
+
+// здесь происходит наследования
+inherit(Child, Parent);
+
+function inherit(C, P) {
+    C.prototype = P.prototype;
 }
 
 var child = new Child("Alex");

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.31010.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{84F1CBAD-C97A-4AE0-91F0-E64804201AFC}"
 	ProjectSection(SolutionItems) = preProject
@@ -16,7 +16,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "classical-patterns", "class
 		default-pattern.js = default-pattern.js
 		rent-and-set-prototype.js = rent-and-set-prototype.js
 		rent-constructor.js = rent-constructor.js
+		share-prototype.js = share-prototype.js
 		template.js = template.js
+		temporary-constructor.js = temporary-constructor.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "modern-patterns", "modern-patterns", "{0A466B4A-1478-49B4-A71B-70DA68BC1AA3}"
+	ProjectSection(SolutionItems) = preProject
+		borrowing-methods.js = borrowing-methods.js
+		copying-properties.js = copying-properties.js
+		prototypal-inheritance.js = prototypal-inheritance.js
 	EndProjectSection
 EndProject
 Global
@@ -25,5 +34,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{4EDA2FA5-9312-4979-8275-291C24766877} = {84F1CBAD-C97A-4AE0-91F0-E64804201AFC}
+		{0A466B4A-1478-49B4-A71B-70DA68BC1AA3} = {84F1CBAD-C97A-4AE0-91F0-E64804201AFC}
 	EndGlobalSection
 EndGlobal
