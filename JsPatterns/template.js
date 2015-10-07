@@ -12,7 +12,7 @@ function Parent(name) {
 }
 // добавление дополнительной функциональности в прототип
 Parent.prototype.say = function (str) {
-    console.log(this.name + ' say ' + str);
+    console.log(str + ', ' + this.name);
 };
 // пустой дочерний конструктор
 function Child(name) { }

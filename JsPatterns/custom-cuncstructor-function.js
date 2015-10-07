@@ -4,13 +4,13 @@
 var Person = function () {
     this.firstName = "Alex";
     this.say = function (str) {
-        console.log(this.firstName + ' say ' +  str);
+        console.log(str + ', ' + this.firstName);
     }
     //return 'text';
 }
 
-var person = new Person();
-person.say("hello");
+//var person = new Person();
+//person.say("Hello");
 
 var Person = function (name) {
     // создаетс€ пустой объект 
@@ -20,7 +20,7 @@ var Person = function (name) {
     // добавл€ютс€ свойства и методы
     this.firstName = "Alex";
     this.say = function (str) {
-        console.log(this.firstName + ' say ' + str);
+        console.log(str + ', ' + this.firstName);
     };
     // return this;
 };/*ѕрототип Ц это объект, а кажда€ создаваема€ вами функци€получает свойство prototype, ссылающеес€ на новый пустой объект. *//*„лены, общие дл€ всех экземпл€ров, такие как 
@@ -28,13 +28,15 @@ var Person = function (name) {
     this.firstName = "Alex";
 }
 
-Employee.prototype.say = function (str) {
-    console.log(this.firstName + ' say ' + str);
+Employee.prototype = {
+    say: function (str) {
+        console.log(str + ', ' + this.firstName);
+    }
 }
-//Employee.prototype = {say: function...}
+//Employee.prototype.say = function()...
 
 var employee = new Employee();
-employee.say("hello");
+employee.say("Hi");
 
 //Eployee();
 //ECMA Script 5

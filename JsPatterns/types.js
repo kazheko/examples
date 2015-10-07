@@ -1,4 +1,6 @@
-//types
+
+// types
+
 console.log(typeof 1);
 
 console.log(typeof 'text');
@@ -9,9 +11,10 @@ console.log(typeof null);
 
 console.log(typeof undefined);
 
-console.log(typeof {});
+console.log(typeof new Object());
 
-//params
+// params
+
 var globalParam1 = 1;
 function fun() {
     var localParam2 = 2;
@@ -19,7 +22,8 @@ function fun() {
 
     function f1() {
         function f2() {
-            var p;
+            var p1;
+            var p2 = localParam2;
         }
     }
 }

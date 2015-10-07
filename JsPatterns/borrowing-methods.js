@@ -2,6 +2,7 @@
 
 var one = {
     name: "object one",
+    //...
     print: function (greet) {
         console.log(greet + ", " + this.name);
     }
@@ -25,3 +26,5 @@ two_print("good day");
 //ECMA Script 5
 var newfunc = one.print.bind(two);
 newfunc("ECMA Script 5");
+
+//https://github.com/kazheko/examples/

@@ -14,7 +14,9 @@ var kid = extend(dad);// полное копирование // jQuery - $.extend()// YUI3 - 
     var i,
         toStr = Object.prototype.toString,
         astr = "[object Array]";
+
     child = child || {};
+
     for (i in parent) {
         if (parent.hasOwnProperty(i)) {
             if (typeof parent[i] === "object") {

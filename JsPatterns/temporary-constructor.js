@@ -6,7 +6,7 @@ function Parent(name) {
 }
 // добавление дополнительной функциональности в прототип
 Parent.prototype.say = function (str) {
-    console.log(this.name + ' say ' + str);
+    console.log(str + ', ' + this.name);
 };
 // пустой дочерний конструктор
 function Child(name) {
@@ -25,7 +25,7 @@ var child = new Child("Alex");
 child.say("hello");
 
 
-// YUI
+// YUI3
 function inherit(C, P) {
     var F = function () { };
     F.prototype = P.prototype;
