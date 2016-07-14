@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examples.AuctionApi.SelfHost", "Examples.AuctionApi.SelfHost\Examples.AuctionApi.SelfHost.csproj", "{08F3E3C2-1694-420C-AA01-8CFDF79479AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examples.AuctionApi", "Examples.AuctionApi\Examples.AuctionApi.csproj", "{EDF64F7B-8BF3-4B64-9145-E2D6670DC894}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{08F3E3C2-1694-420C-AA01-8CFDF79479AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08F3E3C2-1694-420C-AA01-8CFDF79479AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08F3E3C2-1694-420C-AA01-8CFDF79479AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08F3E3C2-1694-420C-AA01-8CFDF79479AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDF64F7B-8BF3-4B64-9145-E2D6670DC894}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDF64F7B-8BF3-4B64-9145-E2D6670DC894}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDF64F7B-8BF3-4B64-9145-E2D6670DC894}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDF64F7B-8BF3-4B64-9145-E2D6670DC894}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
