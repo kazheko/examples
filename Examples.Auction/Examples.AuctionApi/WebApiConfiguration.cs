@@ -7,6 +7,7 @@ namespace Examples.AuctionApi
         public static void Configure(HttpConfiguration config)
         {
             RouteConfig.RegisterRoutes(config);
+            IocConfig.ConfigContainer(config);
         }
     }
 }

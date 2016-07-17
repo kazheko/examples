@@ -52,7 +52,16 @@
     <Compile Include="App_Start\IocConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AuctionsController.cs" />
+    <Compile Include="Controllers\LotsController.cs" />
+    <Compile Include="Infrastructure\IUserStore.cs" />
+    <Compile Include="Infrastructure\ILotStore.cs" />
+    <Compile Include="Infrastructure\InMemoryLotStore.cs" />
+    <Compile Include="Infrastructure\InMemoryUserStore.cs" />
     <Compile Include="Installers\ControllersIstaller.cs" />
+    <Compile Include="Models\Bid.cs" />
+    <Compile Include="Models\Currency.cs" />
+    <Compile Include="Models\Lot.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Plumbing\WindsorCompositionRoot.cs" />
     <Compile Include="WebApiConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
