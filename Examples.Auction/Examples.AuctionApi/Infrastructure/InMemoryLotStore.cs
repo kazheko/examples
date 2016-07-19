@@ -6,7 +6,7 @@ using Examples.AuctionApi.Models;
 
 namespace Examples.AuctionApi.Infrastructure
 {
-    internal class InMemoryLotStore : ILotStore
+    public class InMemoryLotStore : ILotStore
     {
         private readonly IList<Lot> _lots;
         private int _id;
@@ -15,44 +15,7 @@ namespace Examples.AuctionApi.Infrastructure
         {
             _lots = new List<Lot>();
 
-            CreateAsync(new Lot
-            {
-                Id = ++_id,
-                CurrentPrice = new Currency("$125.66"),
-                Title = "HTC One M8 16GB Gunmetal Grey Unlocked",
-                Description = "An item that has been used previously",
-                StartTime = DateTime.Now,
-                EndTime = DateTime.Now.AddMonths(1),
-                StartPrice = new Currency("$125.66"),
-                Owner = userStore.CreateAsync(new User { Email = "jack@gmail.com", Username = "jack" }).Result
-            });
-
-            CreateAsync(new Lot
-            {
-                Id = ++_id,
-                CurrentPrice = new Currency("$299.99"),
-                Title = "HTC One M9 32GB",
-                Description = "A brand-new, unused, unopened, undamaged item in its original packaging",
-                StartTime = DateTime.Now,
-                EndTime = DateTime.Now.AddMonths(1),
-                StartPrice = new Currency("$320.00"),
-                Owner = userStore.CreateAsync(new User { Email = "mark@gmail.com", Username = "mark" }).Result
-            });
-
-            AddBid(_id, new Bid
-            {
-                User = userStore.CreateAsync(new User {Email = "terry@gmail.com", Username = "terry"}).Result,
-                Amount = new Currency("$300.00"),
-                Timestamp = DateTime.Now.AddMinutes(1)
-            });
-
-            AddBid(_id, new Bid
-            {
-                User = userStore.CreateAsync(new User {Email = "alex@gmail.com", Username = "alex"}).Result,
-                Amount = new Currency("$320.00"),
-                Timestamp = DateTime.Now.AddMinutes(1)
-            });
-
+            GenerateData(userStore);
         }
 
         public Task<IEnumerable<Lot>> FindAsync()
@@ -62,7 +25,7 @@ namespace Examples.AuctionApi.Infrastructure
 
         public Task<Lot> FindAsync(int lotId)
         {
-            return Task.FromResult(_lots.Single(i => i.Id == lotId));
+            return Task.FromResult(_lots.SingleOrDefault(i => i.Id == lotId));
         }
 
         public Task<IEnumerable<Lot>> FindAsyncQuery(string searchText)
@@ -106,6 +69,45 @@ namespace Examples.AuctionApi.Infrastructure
             lot.Bids.Add(bid);
 
             return Task.FromResult(bid);
+        }
+
+        private void GenerateData(IUserStore userStore)
+        {
+            CreateAsync(new Lot
+            {
+                CurrentPrice = new Currency("$125.66"),
+                Title = "HTC One M8 16GB Gunmetal Grey Unlocked",
+                Description = "An item that has been used previously",
+                StartTime = DateTime.Now,
+                EndTime = DateTime.Now.AddMonths(1),
+                StartPrice = new Currency("$125.66"),
+                Owner = userStore.CreateAsync(new User { Email = "jack@gmail.com", Username = "jack" }).Result
+            });
+
+            CreateAsync(new Lot
+            {
+                CurrentPrice = new Currency("$299.99"),
+                Title = "HTC One M9 32GB",
+                Description = "A brand-new, unused, unopened, undamaged item in its original packaging",
+                StartTime = DateTime.Now,
+                EndTime = DateTime.Now.AddMonths(1),
+                StartPrice = new Currency("$320.00"),
+                Owner = userStore.CreateAsync(new User { Email = "mark@gmail.com", Username = "mark" }).Result
+            });
+
+            AddBid(_id, new Bid
+            {
+                User = userStore.CreateAsync(new User { Email = "terry@gmail.com", Username = "terry" }).Result,
+                Amount = new Currency("$300.00"),
+                Timestamp = DateTime.Now.AddMinutes(1)
+            });
+
+            AddBid(_id, new Bid
+            {
+                User = userStore.CreateAsync(new User { Email = "alex@gmail.com", Username = "alex" }).Result,
+                Amount = new Currency("$320.00"),
+                Timestamp = DateTime.Now.AddMinutes(1)
+            });
         }
     }
 }

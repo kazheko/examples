@@ -5,8 +5,7 @@ using Examples.AuctionApi.Models;
 
 namespace Examples.AuctionApi.Infrastructure
 {
-
-    internal class InMemoryUserStore : IUserStore
+    public class InMemoryUserStore : IUserStore
     {
         private readonly IList<User> _users;
 

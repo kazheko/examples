@@ -18,13 +18,14 @@ namespace Examples.AuctionApi.Controllers
             _store = store;
         }
 
-        public async Task<HttpResponseMessage> Get(int id)
+        public async Task<Lot> Get(int id)
         {
             var lot = await _store.FindAsync(id);
 
-            return lot == null
-                ? Request.CreateResponse(HttpStatusCode.NotFound, "Invalid ID")
-                : Request.CreateResponse(HttpStatusCode.OK, lot);
+            if(lot == null)
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+
+            return lot;
         }
 
         public async Task<HttpResponseMessage> Post(Lot lot)

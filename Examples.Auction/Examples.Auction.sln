@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examples.AuctionApi.SelfHos
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examples.AuctionApi", "Examples.AuctionApi\Examples.AuctionApi.csproj", "{EDF64F7B-8BF3-4B64-9145-E2D6670DC894}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Examples.AuctionApi.UnitTests", "Examples.AuctionApi.UnitTests\Examples.AuctionApi.UnitTests.csproj", "{420D3CED-E12D-419A-8975-06F50FFBD854}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{EDF64F7B-8BF3-4B64-9145-E2D6670DC894}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDF64F7B-8BF3-4B64-9145-E2D6670DC894}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EDF64F7B-8BF3-4B64-9145-E2D6670DC894}.Release|Any CPU.Build.0 = Release|Any CPU
+		{420D3CED-E12D-419A-8975-06F50FFBD854}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{420D3CED-E12D-419A-8975-06F50FFBD854}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{420D3CED-E12D-419A-8975-06F50FFBD854}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{420D3CED-E12D-419A-8975-06F50FFBD854}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

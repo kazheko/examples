@@ -19,12 +19,9 @@ namespace Examples.AuctionApi.Plumbing
             HttpControllerDescriptor controllerDescriptor,
             Type controllerType)
         {
-            var controller =
-                (IHttpController)_container.Resolve(controllerType);
+            var controller = (IHttpController)_container.Resolve(controllerType);
 
-            request.RegisterForDispose(
-                new Release(
-                    () => _container.Release(controller)));
+            request.RegisterForDispose(new Release(() => _container.Release(controller)));
 
             return controller;
         }

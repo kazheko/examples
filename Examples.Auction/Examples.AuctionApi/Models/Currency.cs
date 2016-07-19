@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Globalization;
 
 namespace Examples.AuctionApi.Models
 {
@@ -7,7 +8,7 @@ namespace Examples.AuctionApi.Models
         public Currency(string currency)
         {
             Code = CurrencyCodesBySymbol[currency[0]];
-            Value = double.Parse(currency.Substring(1));
+            Value = double.Parse(currency.Substring(1), new CultureInfo("en-Us"));
         }
 
         public static IDictionary<char, string> CurrencyCodesBySymbol = new Dictionary<char, string>

@@ -8,6 +8,7 @@ namespace Examples.AuctionApi
         {
             RouteConfig.RegisterRoutes(config);
             IocConfig.ConfigContainer(config);
+            FormattersConfig.ConfigFormatters(config);
         }
     }
 }
