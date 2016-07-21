@@ -63,7 +63,6 @@
     <Compile Include="App_Start\FormattersConfig.cs" />
     <Compile Include="App_Start\IocConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AuctionsController.cs" />
     <Compile Include="Controllers\LotsController.cs" />
     <Compile Include="Infrastructure\IUserStore.cs" />
     <Compile Include="Infrastructure\ILotStore.cs" />
