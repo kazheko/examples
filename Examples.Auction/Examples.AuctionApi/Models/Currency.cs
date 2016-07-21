@@ -16,7 +16,12 @@ namespace Examples.AuctionApi.Models
             {'€', "EUR"},
             {'$', "USD"},
         };
-        public string Code { get; private set; }
-        public double Value { get; private set; }
+        public string Code { get; }
+        public double Value { get; }
+
+        public override string ToString()
+        {
+            return Code + Value;
+        }
     }
 }
