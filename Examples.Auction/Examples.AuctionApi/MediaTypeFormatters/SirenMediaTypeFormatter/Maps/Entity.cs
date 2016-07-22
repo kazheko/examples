@@ -8,14 +8,14 @@ namespace Examples.AuctionApi.MediaTypeFormatters.SirenMediaTypeFormatter.Maps
     {
         private readonly string _class;
         private readonly List<JObject> _entities;
-        private readonly IDictionary<string,string> _properties;
+        private readonly List<JObject> _properties;
         private readonly List<JObject> _actions;
         private readonly List<JObject> _links;
 
         public Entity(string entity, string id)
         {
             _class = entity;
-            _properties = new Dictionary<string, string>();
+            _properties = new List<JObject>();
             _entities = new List<JObject>();
             _actions = new List<JObject>();
             _links = new List<JObject>
@@ -29,10 +29,10 @@ namespace Examples.AuctionApi.MediaTypeFormatters.SirenMediaTypeFormatter.Maps
             return new JObject
             {
                 {"class", _class},
-                {"properties", new JArray(_properties)},
-                {"entities", new JArray(_entities)},
-                {"actions", new JArray(_actions)},
-                {"links", new JArray(_links)}
+                new JProperty("properties", new JArray(_properties)),
+                new JProperty("entities", new JArray(_entities)),
+                new JProperty("actions", new JArray(_actions)),
+                new JProperty("links", new JArray(_links))
             };
         }
 
@@ -42,10 +42,9 @@ namespace Examples.AuctionApi.MediaTypeFormatters.SirenMediaTypeFormatter.Maps
             {
                 {"class", new JValue(entity)},
                 {"rel", Links.Doc.Build(entity)},
-                {"properties", new JArray(properties)},
-                {"links", new JArray(new JObject{ { "rel", new JArray {"self"}}, {"href", Links.Api.Build(entity, id)}})}
+                new JProperty("properties", new JArray(properties.Select(x => new JObject(new JProperty(x.Key, x.Value))))),
+                new JProperty("links", new JArray(new JObject{ { "rel", new JArray {"self"}}, {"href", Links.Api.Build(entity, id)}}))
             });
-
             return this;
         }
 
@@ -63,7 +62,7 @@ namespace Examples.AuctionApi.MediaTypeFormatters.SirenMediaTypeFormatter.Maps
 
         public Entity Properties(string field, string value)
         {
-            _properties.Add(field,value);
+            _properties.Add(new JObject { {field, new JValue(value)}});
             return this;
         }
 
@@ -75,7 +74,15 @@ namespace Examples.AuctionApi.MediaTypeFormatters.SirenMediaTypeFormatter.Maps
                 {"method", new JValue(method)},
                 {"href", new JValue(Links.Api.Build(entity,null))},
                 {"type", "application/json"},
-                {"fields", new JArray(fields.Select(x=>new {name = x.Key, value = x.Value}))},
+                new JProperty("fields", new JArray(fields.Select(x=>
+                {
+                    var item = new JObject {{"name", x.Key}};
+                    if (x.Value != null)
+                    {
+                        item.Add("value",x.Value);
+                    }
+                    return item;
+                }))),
             });
             
             return this;
