@@ -70,9 +70,6 @@
     <Compile Include="Infrastructure\InMemoryUserStore.cs" />
     <Compile Include="Installers\ControllersIstaller.cs" />
     <Compile Include="Installers\StoresInstallers.cs" />
-    <Compile Include="MediaTypeFormatters\SirenMediaTypeFormatter\Maps\Entity.cs" />
-    <Compile Include="MediaTypeFormatters\SirenMediaTypeFormatter\Maps\LotMap.cs" />
-    <Compile Include="MediaTypeFormatters\SirenMediaTypeFormatter\SirenMediaTypeFormatter.cs" />
     <Compile Include="Models\Bid.cs" />
     <Compile Include="Models\Currency.cs" />
     <Compile Include="Models\Lot.cs" />
@@ -87,7 +84,6 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
