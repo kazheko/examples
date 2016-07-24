@@ -1,24 +1,25 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Newtonsoft.Json.Linq;
 
-namespace Examples.AuctionApi.MediaTypeFormatters.SirenMediaTypeFormatter.Maps
+namespace Examples.AuctionApi.MediaTypeFormatters.SirenMediaTypeFormatter
 {
-    internal class Entity
+    internal class EntityBuilder
     {
         private readonly string _class;
-        private readonly List<JObject> _entities;
-        private readonly List<JObject> _properties;
-        private readonly List<JObject> _actions;
-        private readonly List<JObject> _links;
+        private readonly ICollection<JObject> _entities;
+        private readonly JObject _properties;
+        private readonly ICollection<JObject> _actions;
+        private readonly ICollection<JObject> _links;
 
-        public Entity(string entity, string id)
+        public EntityBuilder(string entity, string id = null)
         {
             _class = entity;
-            _properties = new List<JObject>();
-            _entities = new List<JObject>();
-            _actions = new List<JObject>();
-            _links = new List<JObject>
+            _properties = new JObject();
+            _entities = new Collection<JObject>();
+            _actions = new Collection<JObject>();
+            _links = new Collection<JObject>
             {
                 new JObject(new JObject{ { "rel", new JArray {"self"}}, {"href", Links.Api.Build(entity, id)}})
             };
@@ -28,45 +29,50 @@ namespace Examples.AuctionApi.MediaTypeFormatters.SirenMediaTypeFormatter.Maps
         {
             return new JObject
             {
-                {"class", _class},
-                new JProperty("properties", new JArray(_properties)),
+                new JProperty("class", new JArray(_class)),
+                new JProperty("properties", new JObject(_properties)),
                 new JProperty("entities", new JArray(_entities)),
                 new JProperty("actions", new JArray(_actions)),
                 new JProperty("links", new JArray(_links))
             };
         }
 
-        public Entity EmbeddedRepresentation(string entity, string id, IDictionary<string, string> properties)
+        public EntityBuilder EmbeddedRepresentation(string entity, string id, IDictionary<string, string> properties)
         {
-            _entities.Add(new JObject
+            var obj = new JObject
             {
-                {"class", new JValue(entity)},
-                {"rel", Links.Doc.Build(entity)},
-                new JProperty("properties", new JArray(properties.Select(x => new JObject(new JProperty(x.Key, x.Value))))),
-                new JProperty("links", new JArray(new JObject{ { "rel", new JArray {"self"}}, {"href", Links.Api.Build(entity, id)}}))
-            });
+                new JProperty("class", new JArray(entity)),
+                new JProperty("rel", new JArray(Links.Doc.Build(entity))),
+                new JProperty("properties", new JObject(properties.Select(x => new JProperty(x.Key, x.Value))))
+            };
+
+            if(!string.IsNullOrEmpty(id))
+                obj.Add(new JProperty("links", new JArray(new JObject { { "rel", new JArray { "self" } }, { "href", Links.Api.Build(entity, id) } })));
+
+            _entities.Add(obj);
+
             return this;
         }
 
-        public Entity EmbeddedLink(string entity, string id)
+        public EntityBuilder EmbeddedLink(string entity, string id)
         {
             _entities.Add(new JObject
             {
-                {"class", new JValue(entity)},
-                {"rel", Links.Doc.Build(entity)},
+                new JProperty("class", new JArray(entity)),
+                new JProperty("rel", new JArray(Links.Doc.Build(entity))),
                 {"href", Links.Api.Build(entity, id)}
             });
 
             return this;
         }
 
-        public Entity Properties(string field, string value)
+        public EntityBuilder Properties(string field, string value)
         {
-            _properties.Add(new JObject { {field, new JValue(value)}});
+            _properties.Add(new JProperty(field, value));
             return this;
         }
 
-        public Entity Action(string entity, string name, string method, IDictionary<string,string> fields)
+        public EntityBuilder Action(string entity, string name, string method, IDictionary<string,string> fields)
         {
             _actions.Add(new JObject
             {

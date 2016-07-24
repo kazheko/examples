@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Examples.AuctionApi.Models
 {
@@ -21,8 +22,8 @@ namespace Examples.AuctionApi.Models
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public Currency StartPrice { get; set; }
-        public Currency CurrentPrice { get; set; }
+        public Currency CurrentPrice => Bids.Any() ? Bids.Last().Amount : StartPrice;
         public User Owner { get; set; }
-        public ICollection<Bid> Bids { get; private set; }
+        public ICollection<Bid> Bids { get; }
     }
 }

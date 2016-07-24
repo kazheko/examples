@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -16,6 +17,11 @@ namespace Examples.AuctionApi.Controllers
         public LotsController(ILotStore store)
         {
             _store = store;
+        }
+
+        public async Task<IEnumerable<Lot>> Get()
+        {
+            return await _store.FindAsync();
         }
 
         public async Task<Lot> Get(int id)

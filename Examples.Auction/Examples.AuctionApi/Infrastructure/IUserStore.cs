@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Examples.AuctionApi.Models;
 
 namespace Examples.AuctionApi.Infrastructure
 {
     public interface IUserStore
     {
-        Task<IEnumerable<User>> FindAsync();
-        Task<User> CreateAsync(User user);
+        Task<bool> Validate(string email, string password);
+        Task<User> FindAsync(string email);
+        Task<User> CreateAsync(User user, string password);
     }
 }

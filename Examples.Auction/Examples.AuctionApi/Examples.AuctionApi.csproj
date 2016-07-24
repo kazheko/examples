@@ -63,6 +63,7 @@
     <Compile Include="App_Start\FormattersConfig.cs" />
     <Compile Include="App_Start\IocConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\BidsController.cs" />
     <Compile Include="Controllers\LotsController.cs" />
     <Compile Include="Infrastructure\IUserStore.cs" />
     <Compile Include="Infrastructure\ILotStore.cs" />
@@ -70,8 +71,7 @@
     <Compile Include="Infrastructure\InMemoryUserStore.cs" />
     <Compile Include="Installers\ControllersIstaller.cs" />
     <Compile Include="Installers\StoresInstallers.cs" />
-    <Compile Include="MediaTypeFormatters\SirenMediaTypeFormatter\Maps\Entity.cs" />
-    <Compile Include="MediaTypeFormatters\SirenMediaTypeFormatter\Maps\LotMap.cs" />
+    <Compile Include="MediaTypeFormatters\SirenMediaTypeFormatter\EntityBuilder.cs" />
     <Compile Include="MediaTypeFormatters\SirenMediaTypeFormatter\SirenMediaTypeFormatter.cs" />
     <Compile Include="Models\Bid.cs" />
     <Compile Include="Models\Currency.cs" />
