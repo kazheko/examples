@@ -2,7 +2,7 @@
 using System.Web.Http.Dispatcher;
 using Castle.Windsor;
 using Castle.Windsor.Installer;
-using Examples.AuctionApi.Plumbing;
+using Examples.AuctionApi.Plumbing.HttpControllerActivators;
 
 namespace Examples.AuctionApi
 {

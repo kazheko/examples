@@ -30,7 +30,7 @@ namespace Examples.AuctionApi.Controllers
         }
 
         [Authorize]
-        public async Task<HttpResponseMessage> AddBid(int lotId, string currency)
+        public async Task<HttpResponseMessage> Post(int lotId, string currency)
         {
             var lot = _lotStore.FindAsync(lotId);
 

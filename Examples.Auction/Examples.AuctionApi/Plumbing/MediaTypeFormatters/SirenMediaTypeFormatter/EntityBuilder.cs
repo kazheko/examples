@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Newtonsoft.Json.Linq;
 
-namespace Examples.AuctionApi.MediaTypeFormatters.SirenMediaTypeFormatter
+namespace Examples.AuctionApi.Plumbing.MediaTypeFormatters.SirenMediaTypeFormatter
 {
     internal class EntityBuilder
     {

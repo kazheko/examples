@@ -10,13 +10,17 @@ using System.Threading.Tasks;
 using Examples.AuctionApi.Models;
 using Newtonsoft.Json.Linq;
 
-namespace Examples.AuctionApi.MediaTypeFormatters.SirenMediaTypeFormatter
+namespace Examples.AuctionApi.Plumbing.MediaTypeFormatters.SirenMediaTypeFormatter
 {
     public class SirenMediaTypeFormatter : JsonMediaTypeFormatter
     {
         public SirenMediaTypeFormatter()
         {
-            SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/vnd.siren+json"));
+            var header = new MediaTypeHeaderValue("application/vnd.siren+json");
+            SupportedMediaTypes.Add(header);
+
+            var mapping = new QueryStringMapping("format", "siren", header);
+            MediaTypeMappings.Add(mapping);
         }
 
         public override bool CanReadType(Type type)

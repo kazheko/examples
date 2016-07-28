@@ -6,12 +6,14 @@ namespace Examples.AuctionApi.OwinSelfhost
 {
     public class Startup
     {
-        public void Configuration(IAppBuilder appBuilder)
+        public void Configuration(IAppBuilder app)
         {
             var config = new HttpConfiguration();
             WebApiConfiguration.Configure(config);
-            appBuilder.UseWebApi(config);
-            appBuilder.Use(typeof (BasicAuthnMiddleware), new BasicAuthenticationOptions("AuctionApi", null));
+            
+            app.Use(typeof (BasicAuthenticationMiddleware),
+                new BasicAuthenticationOptions("AuctionApi", WebApiConfiguration.ValidateCredentials));
+            app.UseWebApi(config);
         }
     }
 }

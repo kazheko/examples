@@ -8,15 +8,15 @@ using Microsoft.Owin.Security.Infrastructure;
 
 namespace Examples.AuctionApi.OwinSelfhost.Middlewares.BasicAuthenticationMiddleware
 {
-    public class BasicAuthnMiddleware : AuthenticationMiddleware<BasicAuthenticationOptions>
+    public class BasicAuthenticationMiddleware : AuthenticationMiddleware<BasicAuthenticationOptions>
     {
-        public BasicAuthnMiddleware(
+        public BasicAuthenticationMiddleware(
             OwinMiddleware next,
             BasicAuthenticationOptions options)
             : base(next, options)
         { }
-        protected override AuthenticationHandler<BasicAuthenticationOptions>
-            CreateHandler()
+
+        protected override AuthenticationHandler<BasicAuthenticationOptions> CreateHandler()
         {
             return new BasicAuthenticationHandler(Options);
         }
@@ -33,16 +33,15 @@ namespace Examples.AuctionApi.OwinSelfhost.Middlewares.BasicAuthenticationMiddle
 
         protected override async Task<AuthenticationTicket> AuthenticateCoreAsync()
         {
-            var authzValue = Request.Headers.Get("Authorization");
-            if (string.IsNullOrEmpty(authzValue) || !authzValue.StartsWith("Basic ",
-                StringComparison.OrdinalIgnoreCase))
+            var authorization = Request.Headers.Get("Authorization");
+            if (string.IsNullOrEmpty(authorization) || !authorization.StartsWith("Basic ",StringComparison.OrdinalIgnoreCase))
             {
                 return null;
             }
 
-            var token = authzValue.Substring("Basic ".Length).Trim();
+            var token = authorization.Substring("Basic ".Length).Trim();
 
-            var identity = await TryGetPrincipalFromBasicCredentialsUsing(token, null);
+            var identity = await BuildClaimsIdentity(token, Options.ValidateCredentials);
             return new AuthenticationTicket(identity, new AuthenticationProperties());
         }
 
@@ -50,8 +49,7 @@ namespace Examples.AuctionApi.OwinSelfhost.Middlewares.BasicAuthenticationMiddle
         {
             if (Response.StatusCode == 401)
             {
-                var challenge = Helper.LookupChallenge(
-                    Options.AuthenticationType, Options.AuthenticationMode);
+                var challenge = Helper.LookupChallenge(Options.AuthenticationType, Options.AuthenticationMode);
                 if (challenge != null)
                 {
                     Response.Headers.AppendValues("WWW-Authenticate", _challenge);
@@ -60,12 +58,11 @@ namespace Examples.AuctionApi.OwinSelfhost.Middlewares.BasicAuthenticationMiddle
             return Task.FromResult<object>(null);
         }
 
-        public static async Task<ClaimsIdentity> TryGetPrincipalFromBasicCredentialsUsing(string credentials, Func<string, string, Task<ClaimsPrincipal>> validate)
+        public static async Task<ClaimsIdentity> BuildClaimsIdentity(string credentials, Func<string, string, Task<bool>> validate)
         {
-            string pair;
             try
             {
-                pair = Encoding.UTF8.GetString(Convert.FromBase64String(credentials));
+                credentials = Encoding.UTF8.GetString(Convert.FromBase64String(credentials));
             }
             catch (FormatException)
             {
@@ -75,15 +72,23 @@ namespace Examples.AuctionApi.OwinSelfhost.Middlewares.BasicAuthenticationMiddle
             {
                 return null;
             }
-            var ix = pair.IndexOf(':');
-            if (ix == -1) return null;
-            var username = pair.Substring(0, ix);
-            var pw = pair.Substring(ix + 1);
 
-            //validate
+            var parts = credentials.Split(':');
+            if (parts.Length != 2) return null;
 
-            var userClaim = new Claim(ClaimTypes.Name, username);
-            return new ClaimsIdentity(new[] { userClaim });
+            var userId = parts[0].Trim();
+            var password = parts[1].Trim();
+
+            var isValid = await validate(userId, password);
+            if (!isValid) return null;
+
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.Name, userId),
+                new Claim(ClaimTypes.Country, "Речь Паспалитая"), 
+            };
+
+            return new ClaimsIdentity(claims);
         }
     }
 }

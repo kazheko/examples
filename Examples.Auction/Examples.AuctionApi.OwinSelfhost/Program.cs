@@ -1,9 +1,8 @@
-﻿using Microsoft.Owin.Hosting;
-using System;
-using Examples.AuctionApi.OwinSelfhost;
+﻿using System;
+using Microsoft.Owin.Hosting;
 
-namespace OwinSelfhostSample
-{
+namespace Examples.AuctionApi.OwinSelfhost
+{ 
     public class Program
     {
         static void Main()

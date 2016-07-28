@@ -60,6 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\DelegatingHandlersConfig.cs" />
     <Compile Include="App_Start\FormattersConfig.cs" />
     <Compile Include="App_Start\IocConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -71,13 +72,14 @@
     <Compile Include="Infrastructure\InMemoryUserStore.cs" />
     <Compile Include="Installers\ControllersIstaller.cs" />
     <Compile Include="Installers\StoresInstallers.cs" />
-    <Compile Include="MediaTypeFormatters\SirenMediaTypeFormatter\EntityBuilder.cs" />
-    <Compile Include="MediaTypeFormatters\SirenMediaTypeFormatter\SirenMediaTypeFormatter.cs" />
+    <Compile Include="Plumbing\MediaTypeFormatters\SirenMediaTypeFormatter\EntityBuilder.cs" />
+    <Compile Include="Plumbing\MediaTypeFormatters\SirenMediaTypeFormatter\SirenMediaTypeFormatter.cs" />
     <Compile Include="Models\Bid.cs" />
     <Compile Include="Models\Currency.cs" />
     <Compile Include="Models\Lot.cs" />
     <Compile Include="Models\User.cs" />
-    <Compile Include="Plumbing\WindsorCompositionRoot.cs" />
+    <Compile Include="Plumbing\DelegatingHandlers\BasicAuthenticationHandler.cs" />
+    <Compile Include="Plumbing\HttpControllerActivators\WindsorCompositionRoot.cs" />
     <Compile Include="WebApiConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

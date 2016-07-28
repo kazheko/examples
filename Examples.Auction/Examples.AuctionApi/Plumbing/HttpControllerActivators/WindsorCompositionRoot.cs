@@ -4,7 +4,7 @@ using System.Web.Http.Controllers;
 using System.Web.Http.Dispatcher;
 using Castle.Windsor;
 
-namespace Examples.AuctionApi.Plumbing
+namespace Examples.AuctionApi.Plumbing.HttpControllerActivators
 {
     internal class WindsorCompositionRoot : IHttpControllerActivator
     {
