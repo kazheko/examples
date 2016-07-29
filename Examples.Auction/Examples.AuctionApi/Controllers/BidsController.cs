@@ -20,31 +20,38 @@ namespace Examples.AuctionApi.Controllers
             _lotStore = lotStore;
             _userStore = userStore;
         }
-        public Task<IEnumerable<Bid>> GetByLotId(int lotId)
+        public async Task<IEnumerable<Bid>> GetByLotId(int lotId)
         {
-            var lot = _lotStore.FindAsync(lotId);
+            var lot = await _lotStore.FindAsync(lotId);
 
-            if(lot== null) throw new HttpResponseException(HttpStatusCode.NotFound);
+            if(lot == null) throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            return Task.FromResult(lot.Result.Bids.AsEnumerable());
+            return lot.Bids.AsEnumerable();
         }
 
         [Authorize]
         public async Task<HttpResponseMessage> Post(int lotId, string currency)
         {
-            var lot = _lotStore.FindAsync(lotId);
+            var lot = await _lotStore.FindAsync(lotId);
 
             if (lot == null) throw new HttpResponseException(HttpStatusCode.NotFound);
             
             var email = Thread.CurrentPrincipal.Identity.Name;
             var user = await _userStore.FindAsync(email);
 
-            await _lotStore.AddBid(lotId, new Bid
+            try
             {
-                Amount = new Currency(currency),
-                Timestamp = DateTime.Now,
-                User = user
-            });
+                await _lotStore.AddBid(lotId, new Bid
+                {
+                    Amount = new Currency(currency),
+                    Timestamp = DateTime.Now,
+                    User = user
+                });
+            }
+            catch (ArgumentException)
+            {
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+            }
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }
